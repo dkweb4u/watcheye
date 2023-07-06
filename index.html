@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Watch Eye</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        cursor: pointer;
+      }
+      .wraper {
+        height: 100vh;
+        width: 100%;
+        background: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .wraper .box span{
+        font-size: 40px;
+        position: absolute;
+        top: -100%;
+        width: fit-content;
+        white-space: nowrap;
+        line-height: 40px;
+        height: fit-content;
+        background: linear-gradient(to bottom, #ffe03c, #f78852);
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;        
+        color: transparent;
+        font-weight: 700;
+        font-family: monospace;
+      }
+   
+      .wraper .box {
+        display: flex;
+        position: relative;
+        width: 250px;
+        justify-content: center;
+        height: 125px;
+      }
+
+      .wraper .box::before{
+        content: "";
+        height: 300px;
+        width: 300px;
+        background: linear-gradient(to bottom, #ffe03c, #f78852);
+        position: absolute;
+        top: -50px;
+        border-radius: 50%;
+        left: -25px;
+    
+    }
+      .wraper .box::after{
+        content: "";
+        height: 60px;
+        width: 100px;
+        background: #000;
+        position: absolute;
+        top: 130px;
+        border-radius: 50%;   
+        left: calc(50% - 50px);    
+    }
+
+      .wraper .box .left-box,
+      .wraper .box .right-box {
+        height: 100px;
+        width: 100px;
+        background: #fff;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 1px 1px 6px #0005;
+      }
+  
+      .closed{
+        height: 30px !important;
+        width: 30px !important;   
+        top: calc(50% - 15px) !important;   
+        left: calc(50% - 15px) !important;  
+      }
+  
+      .wraper .box .left-box .leye,
+      .wraper .box .right-box .reye {
+        position: sticky;
+        height: 50px;
+        width: 50px;
+        background: #000;
+        border-radius: 50%;
+        top: 0px;
+        left: 0px;       
+        transition: height 0.5s, width 0.5s;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wraper">
+
+      <div class="box">
+        <span></span>
+        <div class="left-box">
+          <div class="leye closed"></div>
+        </div>
+        <div class="right-box">
+          <div class="reye closed" ></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+        let leftbox = document.querySelector(".left-box");
+        let rightbox = document.querySelector(".right-box");
+
+        let lefteye = document.querySelector(".leye");
+        let righteye = document.querySelector(".reye");
+
+        let span = document.querySelector("span");
+
+
+        let lx = leftbox.getBoundingClientRect();
+        let rx = rightbox.getBoundingClientRect();
+      
+
+     document.addEventListener('mousemove',(e)=>{
+
+        let widthSize = lefteye.offsetWidth / 2;
+
+        // left eye
+        lefteye.style.top = e.pageY - lx.top - widthSize + "px";
+        lefteye.style.left = e.pageX - lx.left - widthSize + "px";
+        
+        // right eye
+        righteye.style.top = e.pageY - rx.top - widthSize + "px";
+        righteye.style.left = e.pageX - rx.left - widthSize + "px";
+
+     });
+
+     document.addEventListener('mouseleave',(e)=>{
+       lefteye.classList.add("closed");
+       righteye.classList.add("closed");
+       span.innerText = "";
+     });
+
+     document.addEventListener('mouseenter',(e)=>{
+       lefteye.classList.remove("closed");
+       righteye.classList.remove("closed");
+       span.innerText = "Alert!";
+     });
+    
+ 
+
+
+    
+
+    </script>
+
+
+
+  </body>
+</html>
